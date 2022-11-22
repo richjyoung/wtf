@@ -14,6 +14,8 @@ wtf.IsThis(map[int]*AStruct{})             // map[int]*pkg.AStruct
 wtf.IsThis(make(<-chan int))               // <-chan int
 wtf.IsThis(func(int) error { return nil }) // func (int) error {}
 
+// In cases where the type is nil or contains an empty interface, wtf.NoIdea is returned.
+
 wtf.IsThis(nil)                            // ¯\_(ツ)_/¯
 wtf.IsThis(map[string]interface{}{})       // map[string]¯\_(ツ)_/¯
 ```

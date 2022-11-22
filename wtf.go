@@ -1,53 +1,5 @@
-// WTF Is This?
-//
-// Golang is great until at runtime you are dealing with an interface for which the underlying implementation is buried in a package somewhere.
-// Yes it's easier than other languages to click through and find it, or...
-//
-//	fmt.Println(wtf.IsThis(thing))
-//
-// See the code in wtf_test.go for examples, here are some excerpts
-//
-//	aStruct := wtf.IsThis(TestStruct{})
-//	assert.Equal(t, "github.com/richjyoung/wtf_test.TestStruct", aStruct)
-//
-//	aStructPointer := wtf.IsThis(ptr)
-//	assert.Equal(t, "*github.com/richjyoung/wtf_test.TestStruct", aStructPointer)
-//
-//	aStructPointerPointer := wtf.IsThis(&ptr)
-//	assert.Equal(t, "**github.com/richjyoung/wtf_test.TestStruct", aStructPointerPointer)
-//
-//	anArray := wtf.IsThis([1]TestStruct{})
-//	assert.Equal(t, "[1]github.com/richjyoung/wtf_test.TestStruct", anArray)
-//
-//	anArrayOfPointers := wtf.IsThis([1]*TestStruct{})
-//	assert.Equal(t, "[1]*github.com/richjyoung/wtf_test.TestStruct", anArrayOfPointers)
-//
-//	aChan := wtf.IsThis(ch)
-//	assert.Equal(t, "chan github.com/richjyoung/wtf_test.TestStruct", aChan)
-//
-//	anRChan := wtf.IsThis(rch)
-//	assert.Equal(t, "<-chan github.com/richjyoung/wtf_test.TestStruct", anRChan)
-//
-//	anSChan := wtf.IsThis(sch)
-//	assert.Equal(t, "chan<- github.com/richjyoung/wtf_test.TestStruct", anSChan)
-//
-//	aSlice := wtf.IsThis([]TestStruct{})
-//	assert.Equal(t, "[]github.com/richjyoung/wtf_test.TestStruct", aSlice)
-//
-//	aSliceOfPointers := wtf.IsThis([]*TestStruct{})
-//	assert.Equal(t, "[]*github.com/richjyoung/wtf_test.TestStruct", aSliceOfPointers)
-//
-//	aMap := wtf.IsThis(map[string]TestStruct{})
-//	assert.Equal(t, "map[string]github.com/richjyoung/wtf_test.TestStruct", aMap)
-//
-//	aMapOfPointers := wtf.IsThis(map[string]*TestStruct{})
-//	assert.Equal(t, "map[string]*github.com/richjyoung/wtf_test.TestStruct", aMapOfPointers)
-//
-//	aFunc := wtf.IsThis(fn)
-//	assert.Equal(t, "func (*github.com/richjyoung/wtf_test.TestStruct) error {}", aFunc)
-//
-//	aFuncInterfaceArg := wtf.IsThis(fni)
-//	assert.Equal(t, "func (github.com/richjyoung/wtf_test.TestIface) *github.com/richjyoung/wtf_test.TestStruct {}", aFuncInterfaceArg)
+// wtf.IsThis(thing) either gives as full a string representation
+// of a type as possible, or wtf.NoIdea
 package wtf
 
 import (

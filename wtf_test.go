@@ -1,7 +1,6 @@
 package wtf_test
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/richjyoung/wtf"
@@ -73,10 +72,4 @@ func TestAllTheThings(t *testing.T) {
 
 	aFuncInterfaceArg := wtf.IsThis(fni)
 	assert.Equal(t, "func (github.com/richjyoung/wtf_test.TestIface) *github.com/richjyoung/wtf_test.TestStruct {}", aFuncInterfaceArg)
-}
-
-func TestXxx(t *testing.T) {
-	// type AStruct struct{}
-	// var interface{}
-	fmt.Println(wtf.IsThis(nil))
 }

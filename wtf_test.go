@@ -84,9 +84,9 @@ func TestError(t *testing.T) {
 	assert.Equal(
 		t,
 		`*fmt.wrapError[error 4 - error 3 - error 2 - error 1]
-  *fmt.wrapError[error 3 - error 2 - error 1]
-    *fmt.wrapError[error 2 - error 1]
-      *errors.errorString[error 1]`,
+└─*fmt.wrapError[error 3 - error 2 - error 1]
+  └─*fmt.wrapError[error 2 - error 1]
+    └─*errors.errorString[error 1]`,
 		wtf.IsThisError(e4))
 
 	assert.Equal(t, wtf.NoIdea, wtf.IsThisError(nil))

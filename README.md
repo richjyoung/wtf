@@ -27,8 +27,8 @@ e3 := fmt.Errorf("error 3 - %w", e2)
 
 wtf.IsThisError(e3) // Returns:
 // *fmt.wrapError[error 3 - error 2 - error 1]
-//   *fmt.wrapError[error 2 - error 1]
-//     *errors.errorString[error 1]
+// └─*fmt.wrapError[error 2 - error 1]
+//   └─*errors.errorString[error 1]
 ```
 
 More examples in the [test](./wtf_test.go).

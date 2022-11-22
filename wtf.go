@@ -41,10 +41,11 @@ func IsThisError(err error) string {
 	str := ""
 	i := 0
 	for e != nil {
-		if i > 0 {
-			str = fmt.Sprintf("%s\n", str)
+		if i == 0 {
+			str = fmt.Sprintf("%s[%s]", IsThis(e), e.Error())
+		} else {
+			str = fmt.Sprintf("%s\n%s%s%s[%s]", str, strings.Repeat("  ", i-1), "└─", IsThis(e), e.Error())
 		}
-		str = fmt.Sprintf("%s%s%s[%s]", str, strings.Repeat("  ", i), IsThis(e), e.Error())
 		e = errors.Unwrap(e)
 		i++
 	}

@@ -1,6 +1,7 @@
 package wtf_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/richjyoung/wtf"
@@ -72,4 +73,21 @@ func TestAllTheThings(t *testing.T) {
 
 	aFuncInterfaceArg := wtf.IsThis(fni)
 	assert.Equal(t, "func (github.com/richjyoung/wtf_test.TestIface) *github.com/richjyoung/wtf_test.TestStruct {}", aFuncInterfaceArg)
+}
+
+func TestError(t *testing.T) {
+	e1 := fmt.Errorf("error 1")
+	e2 := fmt.Errorf("error 2 - %w", e1)
+	e3 := fmt.Errorf("error 3 - %w", e2)
+	e4 := fmt.Errorf("error 4 - %w", e3)
+
+	assert.Equal(
+		t,
+		`*fmt.wrapError[error 4 - error 3 - error 2 - error 1]
+  *fmt.wrapError[error 3 - error 2 - error 1]
+    *fmt.wrapError[error 2 - error 1]
+      *errors.errorString[error 1]`,
+		wtf.IsThisError(e4))
+
+	assert.Equal(t, wtf.NoIdea, wtf.IsThisError(nil))
 }

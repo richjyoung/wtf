@@ -18,6 +18,17 @@ wtf.IsThis(func(int) error { return nil }) // func (int) error {}
 
 wtf.IsThis(nil)                            // ¯\_(ツ)_/¯
 wtf.IsThis(map[string]interface{}{})       // map[string]¯\_(ツ)_/¯
+
+// Provides more detail for errors which may implement Unwrap
+
+e1 := fmt.Errorf("error 1")
+e2 := fmt.Errorf("error 2 - %w", e1)
+e3 := fmt.Errorf("error 3 - %w", e2)
+
+wtf.IsThisError(e3) // Returns:
+// *fmt.wrapError[error 3 - error 2 - error 1]
+//   *fmt.wrapError[error 2 - error 1]
+//     *errors.errorString[error 1]
 ```
 
 More examples in the [test](./wtf_test.go).

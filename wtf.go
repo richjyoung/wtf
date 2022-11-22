@@ -3,8 +3,10 @@
 package wtf
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
+	"strings"
 )
 
 const NoIdea = `¯\_(ツ)_/¯`
@@ -26,6 +28,28 @@ func IsThis(target interface{}) string {
 		if res != "" {
 			return res
 		}
+	}
+	return NoIdea
+}
+
+// wtf.IsThisError returns a string representation of the chain of errors.
+// Each line contains wtf.IsThis for the error type, as well as the message output of the Error() interface.
+//
+// If invoked with nil, the result is wtf.NoIdea
+func IsThisError(err error) string {
+	e := err
+	str := ""
+	i := 0
+	for e != nil {
+		if i > 0 {
+			str = fmt.Sprintf("%s\n", str)
+		}
+		str = fmt.Sprintf("%s%s%s[%s]", str, strings.Repeat("  ", i), IsThis(e), e.Error())
+		e = errors.Unwrap(e)
+		i++
+	}
+	if str != "" {
+		return str
 	}
 	return NoIdea
 }
